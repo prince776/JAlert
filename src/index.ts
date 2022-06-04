@@ -35,6 +35,7 @@ async function main() {
             console.log(`Error processing jobs for ${handler.company.name}: ${err}`);
         }
     }
+    await cleanUp();
 }
 
 async function updateJobs(jobs: Job[], company: Company) {
@@ -65,6 +66,11 @@ async function sendNotifications(jobs: Job[], company: Company) {
     for (const job of jobs) {
         sendDiscordMessage(discordClient, createMessage(job));
     }
+}
+
+async function cleanUp() {
+    mongoose.disconnect();
+    discordClient.destroy();
 }
 
 main();

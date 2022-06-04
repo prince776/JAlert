@@ -3,7 +3,7 @@ name: JAlert Cron Job
 on:
   # Triggers the workflow every 30 minutes
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "*/5 * * * *"
 
 jobs:
   cron:

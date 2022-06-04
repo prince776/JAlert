@@ -59,8 +59,11 @@ async function updateJobs(jobs: Job[], company: Company) {
 async function sendNotifications(jobs: Job[], company: Company) {
     // Send discord messages.
     const discordClient = await getDiscordClient();
-    discordClient.on('ready', async () => {
-        jobs.forEach(job => sendDiscordMessage(discordClient, createMessage(job)));
+    await new Promise(resolve => {
+        discordClient.on('ready', async () => {
+            jobs.forEach(job => sendDiscordMessage(discordClient, createMessage(job)));
+            resolve(0);
+        });
     });
 }
 

@@ -10,6 +10,11 @@ export async function getClient() {
     const token = process.env.DISCORD_BOT_TOKEN;
     const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
     await client.login(token);
+    await new Promise(resolve => {
+        client.on('ready', () => {
+            resolve(0);
+        })
+    });
     return client;
 }
 

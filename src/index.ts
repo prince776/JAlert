@@ -10,6 +10,7 @@ import { getClient as getDiscordClient, sendMessage as sendDiscordMessage } from
 
 import { createMessage } from "./utils";
 import bharatPeHandler from "./handlers/BharatPeHandler";
+import { Client } from "discord.js";
 
 const db = {
     user: process.env.DB_USER,
@@ -17,6 +18,7 @@ const db = {
 };
 
 mongoose.connect(`mongodb+srv://${db.user}:${db.pass}@mongodb-cluster.5gkbu.mongodb.net/JAlert?retryWrites=true&w=majority`);
+let discordClient: Client;
 
 const handlers: Handler[] = [
     googleHandler,
@@ -24,6 +26,7 @@ const handlers: Handler[] = [
 ];
 
 async function main() {
+    discordClient = await getDiscordClient();
     for (const handler of handlers) {
         try {
             const newJobs = await handler.getJobs();
@@ -32,7 +35,6 @@ async function main() {
             console.log(`Error processing jobs for ${handler.company.name}: ${err}`);
         }
     }
-    process.exit();
 }
 
 async function updateJobs(jobs: Job[], company: Company) {
@@ -59,13 +61,10 @@ async function updateJobs(jobs: Job[], company: Company) {
 
 async function sendNotifications(jobs: Job[], company: Company) {
     // Send discord messages.
-    const discordClient = await getDiscordClient();
-    await new Promise(resolve => {
-        discordClient.on('ready', async () => {
-            jobs.forEach(job => sendDiscordMessage(discordClient, createMessage(job)));
-            resolve(0);
-        });
-    });
+    console.log("Sending notifications for:", company.name, jobs.length);
+    for (const job of jobs) {
+        sendDiscordMessage(discordClient, createMessage(job));
+    }
 }
 
 main();

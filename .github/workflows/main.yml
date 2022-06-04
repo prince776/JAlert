@@ -9,7 +9,14 @@ jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
-      - name: Run a one-line script
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+
+      - name: Install and run
         env:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}

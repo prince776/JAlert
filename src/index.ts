@@ -64,7 +64,7 @@ async function sendNotifications(jobs: Job[], company: Company) {
     // Send discord messages.
     console.log("Sending notifications for:", company.name, jobs.length);
     for (const job of jobs) {
-        sendDiscordMessage(discordClient, createMessage(job));
+        await sendDiscordMessage(discordClient, createMessage(job));
     }
 }
 

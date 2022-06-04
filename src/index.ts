@@ -27,11 +27,12 @@ async function main() {
     for (const handler of handlers) {
         try {
             const newJobs = await handler.getJobs();
-            updateJobs(newJobs, handler.company);
+            await updateJobs(newJobs, handler.company);
         } catch (err: any) {
             console.log(`Error processing jobs for ${handler.company.name}: ${err}`);
         }
     }
+    process.exit();
 }
 
 async function updateJobs(jobs: Job[], company: Company) {
@@ -47,13 +48,13 @@ async function updateJobs(jobs: Job[], company: Company) {
 
     // Cleanup all old jobs, and add the ones we got in this fetch
     await JobModel.deleteMany({ companyName: company.name });
-    jobs.forEach(async job => {
+    for (const job of jobs) {
         const newJob = new JobModel(job);
         await newJob.save();
-    });
+    }
 
     // alert about new jobs
-    sendNotifications(newJobs, company);
+    await sendNotifications(newJobs, company);
 }
 
 async function sendNotifications(jobs: Job[], company: Company) {

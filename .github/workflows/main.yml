@@ -1,9 +1,9 @@
 name: JAlert Cron Job
 
 on:
-  # Triggers the workflow every 10 minutes
+  # Triggers the workflow every hour
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "0 * * * *"
 
 jobs:
   cron:

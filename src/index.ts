@@ -1,4 +1,3 @@
-import googleHandler from "./handlers/GoogleHandler";
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -9,8 +8,12 @@ import JobModel from "./models/job";
 import { getClient as getDiscordClient, sendMessage as sendDiscordMessage } from './bots/discord';
 
 import { createMessage } from "./utils";
-import bharatPeHandler from "./handlers/BharatPeHandler";
 import { Client } from "discord.js";
+
+// Handlers
+import googleHandler from "./handlers/GoogleHandler";
+import bharatPeHandler from "./handlers/BharatPeHandler";
+import sharechatHandler from "./handlers/SharechatHandler";
 
 const db = {
     user: process.env.DB_USER,
@@ -23,6 +26,7 @@ let discordClient: Client;
 const handlers: Handler[] = [
     googleHandler,
     bharatPeHandler,
+    sharechatHandler
 ];
 
 async function main() {
@@ -35,7 +39,9 @@ async function main() {
             console.log(`Error processing jobs for ${handler.company.name}: ${err}`);
         }
     }
+    console.log("Starting cleanup");
     await cleanUp();
+    console.log("Cleanup Finished");
 }
 
 async function updateJobs(jobs: Job[], company: Company) {

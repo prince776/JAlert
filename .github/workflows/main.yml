@@ -1,13 +1,14 @@
 name: JAlert Cron Job
 
 on:
-  # Triggers the workflow every hour
+  # Triggers the workflow every 6 hours
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 */6 * * *"
 
 jobs:
   cron:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
 

@@ -7,7 +7,7 @@ import JobModel from "./models/job";
 
 import { getClient as getDiscordClient, sendMessage as sendDiscordMessage } from './bots/discord';
 
-import { createMessage } from "./utils";
+import { createDiscordMessage } from "./utils";
 import { Client } from "discord.js";
 
 // Handlers
@@ -70,7 +70,7 @@ async function sendNotifications(jobs: Job[], company: Company) {
     // Send discord messages.
     console.log("Sending notifications for:", company.name, jobs.length);
     for (const job of jobs) {
-        await sendDiscordMessage(discordClient, createMessage(job));
+        await sendDiscordMessage(discordClient, createDiscordMessage(job));
     }
 }
 

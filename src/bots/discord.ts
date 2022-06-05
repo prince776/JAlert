@@ -1,5 +1,5 @@
 // Require the necessary discord.js classes
-import { Client, Intents, TextChannel } from 'discord.js';
+import { Client, Intents, MessageEmbed, TextChannel } from 'discord.js';
 
 const data = {
     channelID: process.env.DISCORD_CHANNEL_ID,
@@ -18,10 +18,13 @@ export async function getClient() {
     return client;
 }
 
-export async function sendMessage(client: Client, message: string) {
+export async function sendMessage(client: Client, message: MessageEmbed) {
     const channel = client.channels.cache.find(ch => ch.id === data.channelID);
     if (channel?.isText()) {
-        await (<TextChannel>channel).send(`<@&${data.roleID}> ${message}`)
+        await (<TextChannel>channel).send(`<@&${data.roleID}>`);
+        await (<TextChannel>channel).send({
+            embeds: [message]
+        })
     }
 }
 

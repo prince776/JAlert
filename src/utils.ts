@@ -1,6 +1,15 @@
 import { MessageEmbed } from 'discord.js';
 import { Job } from './types';
-import { data as discordData } from './bots/discord';
+
+const unwantedTitles = [
+    'II',
+    'Manager',
+    'Sr',
+    'Staff',
+    'Senior',
+    '2',
+    'Lead',
+];
 
 export function createDiscordMessage(job: Job) {
     const embed = new MessageEmbed()
@@ -12,4 +21,14 @@ export function createDiscordMessage(job: Job) {
         .addField('Location', job.location, true);
 
     return embed;
+}
+
+export function filterUnwantedRoles(jobs: Job[]) {
+    return jobs.filter(job => {
+        for (const unwantedTitle of unwantedTitles) {
+            if (job.name.toLowerCase().includes(unwantedTitle.toLowerCase()))
+                return false;
+        }
+        return true;
+    });
 }

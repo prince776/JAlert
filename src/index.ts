@@ -7,13 +7,14 @@ import JobModel from "./models/job";
 
 import { getClient as getDiscordClient, sendMessage as sendDiscordMessage } from './bots/discord';
 
-import { createDiscordMessage } from "./utils";
+import { createDiscordMessage, filterUnwantedRoles } from "./utils";
 import { Client } from "discord.js";
 
 // Handlers
 import googleHandler from "./handlers/GoogleHandler";
 import bharatPeHandler from "./handlers/BharatPeHandler";
 import sharechatHandler from "./handlers/SharechatHandler";
+import uberHandler from "./handlers/UberHandler";
 
 const db = {
     user: process.env.DB_USER,
@@ -26,14 +27,16 @@ let discordClient: Client;
 const handlers: Handler[] = [
     googleHandler,
     bharatPeHandler,
-    sharechatHandler
+    sharechatHandler,
+    uberHandler,
 ];
 
 async function main() {
     discordClient = await getDiscordClient();
     for (const handler of handlers) {
         try {
-            const newJobs = await handler.getJobs();
+            const allNewJobs = await handler.getJobs();
+            const newJobs = await postProcessJobs(allNewJobs);
             await updateJobs(newJobs, handler.company);
         } catch (err: any) {
             console.log(`Error processing jobs for ${handler.company.name}: ${err}`);
@@ -42,6 +45,10 @@ async function main() {
     console.log("Starting cleanup");
     await cleanUp();
     console.log("Cleanup Finished");
+}
+
+async function postProcessJobs(jobs: Job[]) {
+    return filterUnwantedRoles(jobs);
 }
 
 async function updateJobs(jobs: Job[], company: Company) {

@@ -18,6 +18,7 @@ I also plan to add wekhooks for anyone wanting to use the data of this system.
 - Google
 - Sharechat
 - BharatPe
+- Uber
 
 Feel free to contribute to add more companies
 

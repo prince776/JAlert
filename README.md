@@ -1,9 +1,11 @@
 # Automated Job Alerts: JAlert
+
 This project is an effort to automate alerts for as many job openings as possible, to help job seekers.
 
 ![](https://media.discordapp.net/attachments/912603519054401539/983092035886129182/unknown.png)
 
 ## Get started
+
 If you want to get alerts from this bot, you can join the following discord server:
 
 [Invite Link](https://discord.gg/wDSm86keTU) (Then React to Dyno bot to get `job-seeker` role in `read-first` channel)
@@ -12,13 +14,15 @@ Bots on more platforms like twitter will come out soon.
 
 I also plan to add wekhooks for anyone wanting to use the data of this system.
 
-*Note: For now most role fetched are targetted to be for undergratuates/<1 yoe (Since spamming with higher level roles doesn't make sense)*
+_Note: For now most role fetched are targetted to be for undergratuates/<1 yoe (Since spamming with higher level roles doesn't make sense)_
 
 ## Currently supported companies
+
 - Google
 - Sharechat
 - BharatPe
 - Uber
+- Amazon
 
 Feel free to contribute to add more companies
 
@@ -39,10 +43,13 @@ npm i
 Now copy `.env.example` into `.env` (create new file).
 
 In `src/index.ts`: Change the `mongoose.connect` line to: (keep this change locally only)
+
 ```
 mongoose.connect(`mongodb+srv://${db.user}:${db.pass}@cluster0.robkk.mongodb.net/test?retryWrites=true&w=majority`);
 ```
+
 and use the following env variables:
+
 ```
 DB_USER=jalertTest
 DB_PASS=SqR6aKGF4rCbMpxl

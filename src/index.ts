@@ -15,6 +15,7 @@ import googleHandler from "./handlers/GoogleHandler";
 import bharatPeHandler from "./handlers/BharatPeHandler";
 import sharechatHandler from "./handlers/SharechatHandler";
 import uberHandler from "./handlers/UberHandler";
+import amazonHandler from "./handlers/AmazonHandler";
 
 const db = {
     user: process.env.DB_USER,
@@ -29,6 +30,7 @@ const handlers: Handler[] = [
     bharatPeHandler,
     sharechatHandler,
     uberHandler,
+    amazonHandler,
 ];
 
 async function main() {

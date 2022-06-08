@@ -19,10 +19,11 @@ const amazonHandler: Handler = {
         } )
 
         const result: Job[] = jobs.map(job => {
+            const urlPrefix = 'https://amazon.jobs'
             return {
                 id: job.id,
                 name: job.title,
-                url: job.job_path,
+                url: urlPrefix + job.job_path,
                 jd: `${job.basic_qualifications}\n${job.preferred_qualifications}\n${job.description}`,
                 location: 'india',
                 companyName: name,    

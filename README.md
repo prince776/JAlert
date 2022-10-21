@@ -23,6 +23,7 @@ _Note: For now most role fetched are targetted to be for undergratuates/<1 yoe (
 - BharatPe
 - Uber
 - Amazon
+- Microsoft
 
 Feel free to contribute to add more companies
 

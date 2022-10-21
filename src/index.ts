@@ -16,13 +16,14 @@ import bharatPeHandler from "./handlers/BharatPeHandler";
 import sharechatHandler from "./handlers/SharechatHandler";
 import uberHandler from "./handlers/UberHandler";
 import amazonHandler from "./handlers/AmazonHandler";
+import microsoftHandler from "./handlers/MicrosoftHandler";
 
 const db = {
     user: process.env.DB_USER,
     pass: process.env.DB_PASS
 };
 
-mongoose.connect(`mongodb+srv://${db.user}:${db.pass}@mongodb-cluster.5gkbu.mongodb.net/JAlert?retryWrites=true&w=majority`);
+mongoose.connect(`mongodb+srv://${db.user}:${db.pass}@cluster0.robkk.mongodb.net/test?retryWrites=true&w=majority`);
 let discordClient: Client;
 
 const handlers: Handler[] = [
@@ -31,6 +32,7 @@ const handlers: Handler[] = [
     sharechatHandler,
     uberHandler,
     amazonHandler,
+    microsoftHandler
 ];
 
 async function main() {

@@ -23,7 +23,7 @@ const db = {
     pass: process.env.DB_PASS
 };
 
-mongoose.connect(`mongodb+srv://${db.user}:${db.pass}@cluster0.robkk.mongodb.net/test?retryWrites=true&w=majority`);
+mongoose.connect(`mongodb+srv://${db.user}:${db.pass}@mongodb-cluster.5gkbu.mongodb.net/JAlert?retryWrites=true&w=majority`);
 let discordClient: Client;
 
 const handlers: Handler[] = [
